@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(sensor_imu)
+
+# 添加依赖 build
+find_package(
+	catkin REQUIRED COMPONENTS 
+	roscpp 
+	rospy 
+	std_msgs 
+	message_generation
+)
+
+# Generate messages in the 'msg' folder
+add_message_files(
+	FILES
+	mpu6050.msg
+)
+
+# Generate added messages and services with any dependencies listed here
+generate_messages(
+  	DEPENDENCIES
+	std_msgs  # Or other packages containing msgs
+)
+
+# catkin specific configuration 
+catkin_package(
+  	INCLUDE_DIRS include
+  	LIBRARIES sensor_imu
+  	CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+  	DEPENDS system_lib
+)
+
+include_directories( ${PROJECT_SOURCE_DIR}/include ${catkin_INCLUDE_DIRS} )
+
+add_executable( sensor_imu_node src/sensor_imu.cpp )
+target_link_libraries( sensor_imu_node ${catkin_LIBRARIES} )
+
+# Add cmake target dependencies of the library
+# as an example, code may need to be generated before libraries
+# either from message generation or dynamic reconfigure
+add_dependencies( serial_imu_node serial_imu_generate_messages_cpp )
+
+
+
+
+
+
+
