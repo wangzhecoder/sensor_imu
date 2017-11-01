@@ -162,7 +162,7 @@ int main(int argc, char **argv)
 			}
 		}
 		imu_data_pub.publish(imu);
-                usleep(10000); // 每隔10ms读取一次串口
+                usleep(500); // 每隔10ms读取一次串口
         }
         close(fd);
 }
